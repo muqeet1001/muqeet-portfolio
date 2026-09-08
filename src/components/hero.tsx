@@ -15,9 +15,9 @@ export function Hero() {
   };
 
   const roles = [
-    "Data Analyst.",
-    "MERN Stack Developer.",
-    "B.Tech Student.",
+    "Full Stack Engineer.",
+    "AI Developer.",
+    "Final Year Student.",
     "Open to Internships."
   ];
   const [roleIndex, setRoleIndex] = useState(0);

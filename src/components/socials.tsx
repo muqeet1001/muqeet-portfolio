@@ -30,13 +30,13 @@ const hoverCardsData: Record<string, {
   },
   linkedin: {
     pronouns: "He/Him",
-    handle: "in/priyanshu-singh-9896592bb",
-    bio: "B.Tech student, Data Analyst, and MERN Stack Developer.",
-    stats: ["Open to Internships", "Bengaluru, India"],
+    handle: "in/abdul-muqeet-601242280",
+    bio: "Final-year BTech student, Full Stack Engineer, and AI Developer.",
+    stats: ["Open to Internships", "Bangalore, India"],
     bannerText: "network • build • impact",
   },
   email: {
-    handle: "priyanshublr537@gmail.com",
+    handle: "abdul00muqeet@gmail.com",
     bio: "Actively seeking internships and project collaborations.",
     stats: ["Fast Response", "Direct Email"],
     bannerText: "collab • contact • direct",

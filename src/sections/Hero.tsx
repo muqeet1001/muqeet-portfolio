@@ -6,9 +6,9 @@ import { MapPin, Search, RotateCw, Eye } from "lucide-react";
 import { useVisitor } from "@/context/VisitorContext";
 
 const HEADLINE_TITLES = [
-  "Data Analyst",
-  "MERN Stack Developer",
-  "B.Tech Student",
+  "Full Stack Engineer",
+  "AI Developer",
+  "Final Year Student",
   "Open to Internships",
 ];
 
