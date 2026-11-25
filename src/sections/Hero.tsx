@@ -56,56 +56,34 @@ export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
           )}
         </div>
 
-        <div className="mt-5 grid gap-5 sm:mt-7 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-7">
-          <div>
-            <p className="text-[17px] leading-relaxed text-[var(--muted)] sm:text-lg">
-              At Twinnie, I automated 3D garment creation and cut production time from{" "}
-              <strong className="font-semibold text-[var(--fg)]">one day to about 30 minutes.</strong>
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
-              <a
-                href="#projects"
-                className="inline-flex min-h-10 items-center rounded-md bg-[var(--fg)] px-3 text-[13px] font-semibold text-[var(--bg)] hover:opacity-80"
-              >
-                See my work
-              </a>
-              <a
-                href={site.socials.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-10 items-center text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
-              >
-                View résumé
-              </a>
-              <a
-                href={site.socials.resume}
-                download
-                className="inline-flex min-h-10 items-center gap-1.5 text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
-              >
-                <Download size={14} aria-hidden="true" /> Download résumé
-              </a>
-            </div>
+        <div className="mt-5 sm:mt-7">
+          <p className="text-[17px] leading-relaxed text-[var(--muted)] sm:text-lg">
+            At Twinnie, I automated 3D garment creation and cut production time from{" "}
+            <strong className="font-semibold text-[var(--fg)]">one day to about 30 minutes.</strong>
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <a
+              href="#projects"
+              className="inline-flex min-h-10 items-center rounded-md bg-[var(--fg)] px-3 text-[13px] font-semibold text-[var(--bg)] hover:opacity-80"
+            >
+              See my work
+            </a>
+            <a
+              href={site.socials.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-10 items-center text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
+            >
+              View résumé
+            </a>
+            <a
+              href={site.socials.resume}
+              download
+              className="inline-flex min-h-10 items-center gap-1.5 text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
+            >
+              <Download size={14} aria-hidden="true" /> Download résumé
+            </a>
           </div>
-
-          <figure className="rounded-xl border border-[#385548] bg-[#112b26] px-4 py-4 text-[#f1f7f0] sm:px-5 sm:py-5">
-            <figcaption className="font-serif text-[21px] leading-tight">Cost per garment</figcaption>
-            <dl className="mt-3.5 space-y-3">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
-                <dt className="text-[13px] text-[#c0d3c7]">Before automation</dt>
-                <dd className="font-mono text-sm tabular-nums">$150–$300</dd>
-                <dd aria-hidden="true" className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-full bg-gradient-to-r from-[#8ea69b] from-50% to-[#607d70] to-50%" />
-                </dd>
-              </div>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
-                <dt className="text-[13px] text-[#c0d3c7]">After automation</dt>
-                <dd className="font-mono text-sm tabular-nums text-[#c7f291]">$15–$30</dd>
-                <dd aria-hidden="true" className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-[10%] rounded-r-full bg-gradient-to-r from-[#c7f291] from-50% to-[#96ba6a] to-50%" />
-                </dd>
-              </div>
-            </dl>
-          </figure>
         </div>
       </Shell>
     </section>
