@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shell } from "@/components/Layout";
 import { site } from "@/config/site";
-import { MapPin, Search, RotateCw, Eye } from "lucide-react";
+import { Download, ExternalLink, MapPin, Search, RotateCw, Eye } from "lucide-react";
 import { useVisitor } from "@/context/VisitorContext";
 
 const HEADLINE_TITLES = [
-  "Full Stack Engineer",
-  "AI Developer",
-  "Final Year Student",
-  "Open to Internships",
+  site.role,
+  "Software Engineer at Twinnie",
+  "Computer Science Student",
 ];
 
 export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
@@ -115,6 +114,23 @@ export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
                   <span>{isLoading ? "..." : count?.toLocaleString()} views</span>
                 </span>
               </p>
+              <div className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
+                <a
+                  href={site.socials.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-[var(--fg)] px-3 py-2 text-xs font-medium text-[var(--bg)] hover:opacity-80"
+                >
+                  View résumé <ExternalLink size={13} aria-hidden="true" />
+                </a>
+                <a
+                  href={site.socials.resume}
+                  download
+                  className="inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] px-3 py-2 text-xs font-medium text-[var(--fg)] hover:bg-[var(--chip)]"
+                >
+                  <Download size={13} aria-hidden="true" /> Download résumé
+                </a>
+              </div>
             </div>
           </div>
 

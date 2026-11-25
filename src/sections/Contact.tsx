@@ -8,7 +8,7 @@ export function Contact() {
     { label: "GitHub", href: site.socials.github, Icon: GitHubIcon },
     { label: "LinkedIn", href: site.socials.linkedin, Icon: LinkedInIcon },
     { label: "Mail", href: site.socials.email || `mailto:${site.email}`, Icon: MailIcon },
-    { label: "Resume", href: site.socials.resume, Icon: FileIcon },
+    { label: "View résumé", href: site.socials.resume, Icon: FileIcon },
   ];
 
   return (

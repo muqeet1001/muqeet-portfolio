@@ -137,6 +137,7 @@ body, header, main, div, span, p, h1, h2, h3, a, button, input {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 3.5rem;
   font-family: var(--font-sans);
   background-color: var(--bg);
   color: var(--fg);

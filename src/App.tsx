@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer";
 import { SideIndex } from "@/components/SideIndex";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
+import { Experience } from "@/sections/Experience";
+import { Background } from "@/sections/Background";
 import { Contact } from "@/sections/Contact";
 import { Projects } from "@/sections/Projects";
 import { TechStack } from "@/sections/TechStack";
@@ -40,8 +42,10 @@ function MainLayout({ onOpenPalette }: { onOpenPalette: () => void }) {
       <Hero onOpenPalette={onOpenPalette} />
       <About />
       <Contact />
+      <Experience />
       <Projects isSearchable={false} />
       <TechStack />
+      <Background />
       <GithubActivity />
     </>
   );

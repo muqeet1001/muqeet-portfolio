@@ -83,7 +83,7 @@ export function CommandPalette({
       id: "nav-about",
       category: "navigation",
       title: "Go to About",
-      subtitle: "Education, interests, and technical skills",
+      subtitle: "Abdul’s background and work",
       icon: <Terminal size={16} />,
       action: () => {
         navigate("/#about");
@@ -94,7 +94,7 @@ export function CommandPalette({
       id: "nav-projects",
       category: "navigation",
       title: "Go to Projects",
-      subtitle: "Browse data analysis and MERN projects",
+      subtitle: "Browse projects and GitHub repositories",
       icon: <Globe size={16} />,
       action: () => {
         navigate("/projects");
@@ -105,7 +105,7 @@ export function CommandPalette({
       id: "nav-contact",
       category: "navigation",
       title: "Go to Contact",
-      subtitle: "Social links, email, and contact form",
+      subtitle: "GitHub, LinkedIn, email, and résumé",
       icon: <Mail size={16} />,
       action: () => {
         navigate("/contact");

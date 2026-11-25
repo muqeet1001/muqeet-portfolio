@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 const INDEX_ITEMS = [
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
+  { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
+  { id: "achievements", label: "Achievements" },
+  { id: "education", label: "Education" },
+  { id: "certifications", label: "Certifications" },
   { id: "github", label: "GitHub" },
 ];
 
@@ -13,18 +17,17 @@ export function SideIndex() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
       for (const item of INDEX_ITEMS) {
         const el = document.getElementById(item.id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          const { top, bottom } = el.getBoundingClientRect();
+          if (top <= 200 && bottom > 200) {
             setActiveSection(item.id);
-            break;
+            return;
           }
         }
       }
+      setActiveSection("");
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
