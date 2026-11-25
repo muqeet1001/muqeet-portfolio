@@ -8,6 +8,7 @@ export type Project = {
   featured?: boolean;
   status?: string;
   image?: string;
+  imageAlt?: string;
   categories?: string[];
 };
 
@@ -132,6 +133,8 @@ export const site = {
   projects: [
     {
       title: "Dukanpe",
+      image: "/project-images/dukanpe-banner.webp",
+      imageAlt: "Dukanpe’s mobile bookkeeping dashboard beside its blue app icon.",
       blurb:
         "A mobile bookkeeping assistant for Indian retailers. Shopkeepers turn confirmed WhatsApp orders into invoices and track what each customer owes.",
       story:
@@ -143,6 +146,9 @@ export const site = {
     },
     {
       title: "Student OS",
+      // The sign-in artwork uses Media Hopper Studio's campus film (Pixabay 256696).
+      image: "/project-images/student-os-banner.webp",
+      imageAlt: "Students walking toward a library behind the Student OS motto, “Learn. Build. Become.”",
       blurb:
         "A placement platform that helps engineering students assess their readiness across five areas and build a four-week preparation plan.",
       story:

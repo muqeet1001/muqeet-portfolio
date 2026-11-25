@@ -10,6 +10,19 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm transition-colors hover:border-[var(--soft)]">
+      {project.image && (
+        <div className="-mx-5 -mt-5 mb-4 overflow-hidden rounded-t-[11px] border-b border-[var(--line)] bg-[var(--chip)]">
+          <img
+            src={project.image}
+            alt={project.imageAlt ?? ""}
+            width={1120}
+            height={560}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[2/1] w-full object-cover"
+          />
+        </div>
+      )}
       <div className="flex items-baseline justify-between gap-2">
         <h3 className="font-serif text-2xl text-[var(--fg)]">{project.title}</h3>
         <span className="font-mono text-xs text-[var(--soft)]">{project.year}</span>
