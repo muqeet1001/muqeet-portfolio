@@ -1,152 +1,113 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Download, MapPin, RotateCw, Search } from "lucide-react";
 import { Shell } from "@/components/Layout";
 import { site } from "@/config/site";
-import { Download, ExternalLink, MapPin, Search, RotateCw, Eye } from "lucide-react";
-import { useVisitor } from "@/context/VisitorContext";
-
-const HEADLINE_TITLES = [
-  site.role,
-  "Software Engineer at Twinnie",
-  "Computer Science Student",
-];
 
 export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
-  const [headlineIndex, setHeadlineIndex] = useState(0);
   const [imgIndex, setImgIndex] = useState(0);
-  const { count, isLoading } = useVisitor();
 
-  const handleNextImage = () => {
-    const nextIndex = (imgIndex + 1) % site.profileImages.length;
-    setImgIndex(nextIndex);
-    window.dispatchEvent(new CustomEvent("profileImageChanged", { detail: nextIndex }));
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeadlineIndex((prev) => (prev + 1) % HEADLINE_TITLES.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, []);
+  function nextProfileImage() {
+    const next = (imgIndex + 1) % site.profileImages.length;
+    setImgIndex(next);
+    window.dispatchEvent(new CustomEvent("profileImageChanged", { detail: next }));
+  }
 
   return (
-    <>
-      {/* Cover Banner */}
-      <Shell className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="relative h-36 overflow-hidden rounded-xl bg-neutral-950 sm:h-44 border border-[var(--line)]">
-          <img
-            src={site.bannerImage}
-            alt="Steve Jobs at desk"
-            loading="eager"
-            decoding="async"
-            className="w-full h-full object-cover object-center opacity-65 grayscale"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)]/40 to-transparent" />
-          <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.05)_0,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_5px)]" />
-          <div className="absolute inset-0 [background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0.12)_0,rgba(0,0,0,0.12)_1px,transparent_1px,transparent_28px)] opacity-30" />
-        </div>
-      </Shell>
-
-      {/* Profile Avatar & Identity */}
-      <Shell className="px-6 py-6 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-6 justify-between"
-        >
-          <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-5">
-            <div 
-              onClick={handleNextImage}
-              className="relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--chip)] shadow-md group select-none animate-fade-up"
-            >
-              {/* Main Avatar Image */}
-              <img
-                src={site.profileImages[imgIndex]}
-                alt={site.name}
-                loading="eager"
-                decoding="async"
-                className="h-full w-full object-cover pointer-events-none"
-              />
-
-              {/* CRT scanline overlay */}
-              <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden opacity-[0.18] group-hover:opacity-30 transition-opacity bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]">
-                <div className="absolute inset-0 h-1 bg-white/20 blur-[1px] animate-scanline" />
-              </div>
-
-              {/* Switch image icon */}
-              {site.profileImages.length > 1 && <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNextImage();
-                }}
-                className="absolute right-1 top-1 rounded-full border border-[var(--line)] bg-[var(--chip)] p-1 text-[var(--muted)] transition-all hover:text-[var(--fg)] hover:scale-110 sm:opacity-100 opacity-0 group-hover:opacity-100 z-20 cursor-pointer shadow-sm"
+    <section aria-labelledby="profile-heading">
+      <Shell className="px-5 py-6 sm:px-8 sm:py-9">
+        <div className="flex items-start gap-3.5 sm:gap-4">
+          <div className="relative size-14 shrink-0 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--chip)] sm:size-[68px]">
+            <img
+              src={site.profileImages[imgIndex]}
+              alt=""
+              width={68}
+              height={68}
+              className="h-full w-full object-cover"
+            />
+            {site.profileImages.length > 1 && (
+              <button
+                type="button"
+                onClick={nextProfileImage}
                 aria-label="Switch profile image"
+                className="absolute inset-0 flex items-end justify-end p-1.5 text-white"
               >
-                <RotateCw size={10} strokeWidth={2} />
-              </button>}
-            </div>
-            <div>
-              <h1 className="font-serif text-3xl sm:text-[38px] leading-none tracking-tight text-[var(--fg)] text-glitch">
-                {site.name}
-              </h1>
-              <div className="h-[20px] overflow-hidden mt-1">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={headlineIndex}
-                    initial={{ y: 12, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -12, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="font-mono text-[13px] text-[var(--muted)]"
-                  >
-                    {HEADLINE_TITLES[headlineIndex]}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-              <p className="mt-1 flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 font-mono text-[11px] text-[var(--soft)]">
-                <span className="flex items-center gap-1">
-                  <MapPin size={12} className="shrink-0" /> {site.location}
-                </span>
-                <span>·</span>
-                <span className="flex items-center gap-1">
-                  <Eye size={12} className="shrink-0" />
-                  <span>{isLoading ? "..." : count?.toLocaleString()} views</span>
-                </span>
-              </p>
-              <div className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
-                <a
-                  href={site.socials.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-[var(--fg)] px-3 py-2 text-xs font-medium text-[var(--bg)] hover:opacity-80"
-                >
-                  View résumé <ExternalLink size={13} aria-hidden="true" />
-                </a>
-                <a
-                  href={site.socials.resume}
-                  download
-                  className="inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] px-3 py-2 text-xs font-medium text-[var(--fg)] hover:bg-[var(--chip)]"
-                >
-                  <Download size={13} aria-hidden="true" /> Download résumé
-                </a>
-              </div>
+                <RotateCw size={14} aria-hidden="true" />
+              </button>
+            )}
+          </div>
+          <div className="min-w-0">
+            <h1 id="profile-heading" className="font-serif text-[38px] leading-none tracking-tight text-[var(--fg)] sm:text-5xl">
+              {site.name}
+            </h1>
+            <p className="mt-1.5 font-mono text-sm text-[var(--fg)]">{site.role}</p>
+            <p className="mt-1 flex items-center gap-1.5 text-xs text-[var(--muted)]">
+              <MapPin size={13} aria-hidden="true" /> {site.location}
+            </p>
+          </div>
+          {onOpenPalette && (
+            <button
+              type="button"
+              onClick={onOpenPalette}
+              aria-label="Open command palette"
+              className="ml-auto hidden items-center gap-1.5 rounded-lg border border-[var(--line)] px-2.5 py-1.5 font-mono text-xs text-[var(--muted)] hover:text-[var(--fg)] sm:flex"
+            >
+              <Search size={13} aria-hidden="true" /> ⌘K
+            </button>
+          )}
+        </div>
+
+        <div className="mt-5 grid gap-5 sm:mt-7 sm:grid-cols-[1.3fr_1fr] sm:items-center sm:gap-7">
+          <div>
+            <p className="text-[17px] leading-relaxed text-[var(--muted)] sm:text-lg">
+              At Twinnie, I automated 3D garment creation and cut production time from{" "}
+              <strong className="font-semibold text-[var(--fg)]">one day to about 30 minutes.</strong>
+            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <a
+                href="#projects"
+                className="inline-flex min-h-10 items-center rounded-md bg-[var(--fg)] px-3 text-[13px] font-semibold text-[var(--bg)] hover:opacity-80"
+              >
+                See my work
+              </a>
+              <a
+                href={site.socials.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-10 items-center text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
+              >
+                View résumé
+              </a>
+              <a
+                href={site.socials.resume}
+                download
+                className="inline-flex min-h-10 items-center gap-1.5 text-[13px] font-medium text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
+              >
+                <Download size={14} aria-hidden="true" /> Download résumé
+              </a>
             </div>
           </div>
 
-          {/* Quick Command Palette Keyboard Badge */}
-          {onOpenPalette && (
-            <button
-              onClick={onOpenPalette}
-              className="flex items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--chip)] px-3 py-1.5 font-mono text-[11px] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--soft)] transition-colors shadow-sm cursor-pointer"
-              title="Open Command Palette (Ctrl+K)"
-            >
-              <Search size={14} />
-              <span>⌘K</span>
-            </button>
-          )}
-        </motion.div>
+          <figure className="rounded-xl border border-[#385548] bg-[#112b26] px-4 py-4 text-[#f1f7f0] sm:px-5 sm:py-5">
+            <figcaption className="font-serif text-[21px] leading-tight">Cost per garment</figcaption>
+            <dl className="mt-3.5 space-y-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+                <dt className="text-[13px] text-[#c0d3c7]">Before automation</dt>
+                <dd className="font-mono text-sm tabular-nums">$150–$300</dd>
+                <dd aria-hidden="true" className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-full bg-gradient-to-r from-[#8ea69b] from-50% to-[#607d70] to-50%" />
+                </dd>
+              </div>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+                <dt className="text-[13px] text-[#c0d3c7]">After automation</dt>
+                <dd className="font-mono text-sm tabular-nums text-[#c7f291]">$15–$30</dd>
+                <dd aria-hidden="true" className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-[10%] rounded-r-full bg-gradient-to-r from-[#c7f291] from-50% to-[#96ba6a] to-50%" />
+                </dd>
+              </div>
+            </dl>
+          </figure>
+        </div>
       </Shell>
-    </>
+    </section>
   );
 }

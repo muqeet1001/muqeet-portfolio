@@ -1,12 +1,13 @@
 import { useId, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type Project } from "@/config/site";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
 
 export function ProjectCard({ project }: { project: Project }) {
   const [showDetails, setShowDetails] = useState(false);
   const detailsId = useId();
+  const study = project.caseStudy;
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm transition-colors hover:border-[var(--soft)]">
@@ -29,16 +30,17 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
       <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{project.blurb}</p>
 
-      {project.story && (
+      {(project.story || study) && (
         <div className="mt-3">
           <button
             type="button"
             aria-expanded={showDetails}
             aria-controls={detailsId}
+            aria-label={`${showDetails ? "Hide" : "Read"} ${project.title} ${study ? "case study" : "details"}`}
             onClick={() => setShowDetails(!showDetails)}
-            className="inline-flex items-center gap-1 rounded font-mono text-xs text-[var(--muted)] hover:text-[var(--fg)]"
+            className="inline-flex min-h-9 items-center gap-1.5 rounded font-mono text-xs font-semibold text-[var(--fg)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-current"
           >
-            {showDetails ? "Hide details" : "Project details"}
+            {showDetails ? "Hide details" : study ? "Read case study" : "Project details"}
             {showDetails ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <div id={detailsId}>
@@ -51,9 +53,67 @@ export function ProjectCard({ project }: { project: Project }) {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <p className="mt-2 border-l-2 border-[var(--line)] pl-3 text-sm leading-relaxed text-[var(--muted)]">
-                    {project.story}
-                  </p>
+                  <div className="space-y-3 border-t border-[var(--line)] pt-4">
+                    {study && (
+                      <h4 className="font-serif text-xl leading-tight text-[var(--fg)]">{study.title}</h4>
+                    )}
+                    {project.story && (
+                      <p className="text-sm leading-relaxed text-[var(--muted)]">{project.story}</p>
+                    )}
+                    {study && (
+                      <>
+                        <figure>
+                          <img
+                            src={study.screenshot.src}
+                            alt={study.screenshot.alt}
+                            width={study.screenshot.width}
+                            height={study.screenshot.height}
+                            decoding="async"
+                            className="block h-auto w-full rounded-lg border border-[var(--line)]"
+                          />
+                          <figcaption className="mt-1.5 text-xs leading-relaxed text-[var(--muted)]">
+                            {study.screenshot.caption}
+                          </figcaption>
+                        </figure>
+                        <dl className="divide-y divide-[var(--line)]">
+                          {study.steps.map((step) => (
+                            <div key={step.label} className="py-2.5">
+                              <dt className="text-sm font-semibold text-[var(--fg)]">{step.label}</dt>
+                              <dd className="mt-0.5 text-sm leading-relaxed text-[var(--muted)]">{step.detail}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                          {study.sources.map((source) => (
+                            <a
+                              key={source.href}
+                              href={source.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline underline-offset-4 hover:text-[var(--fg)]"
+                            >
+                              {source.label}
+                            </a>
+                          ))}
+                        </div>
+                        {study.publication && (
+                          <div className="space-y-1.5 border-t border-[var(--line)] pt-3">
+                            <h5 className="text-sm font-semibold text-[var(--fg)]">Related publication</h5>
+                            <a
+                              href={study.publication.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-sm leading-relaxed text-[var(--fg)] underline underline-offset-4"
+                            >
+                              {study.publication.title} <ExternalLink size={13} aria-hidden="true" className="inline" />
+                            </a>
+                            <p className="text-xs leading-relaxed text-[var(--muted)]">{study.publication.citation}</p>
+                            <p className="break-words font-mono text-xs text-[var(--muted)]">DOI {study.publication.doi}</p>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

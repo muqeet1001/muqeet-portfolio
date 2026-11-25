@@ -2,6 +2,13 @@ export type Project = {
   title: string;
   blurb: string;
   story?: string;
+  caseStudy?: {
+    title: string;
+    screenshot: { src: string; alt: string; caption: string; width: number; height: number };
+    steps: { label: string; detail: string }[];
+    sources: { label: string; href: string }[];
+    publication?: { title: string; href: string; citation: string; doi: string };
+  };
   stack: string[];
   year: string;
   links: { live?: string; source?: string };
@@ -53,7 +60,7 @@ export const site = {
   ],
   tldr: [
     "Led the first-place team at Technovate-2K25",
-    "Published an IEEE conference paper on Student OS",
+    "Co-authored an IEEE conference paper on AI in education and recruitment",
     "Built a bookkeeping assistant in Hindi and English",
     "Cut 3D garment production from a day to about 30 minutes",
   ] as string[],
@@ -136,9 +143,27 @@ export const site = {
       image: "/project-images/dukanpe-banner.webp",
       imageAlt: "Dukanpe’s mobile bookkeeping dashboard beside its blue app icon.",
       blurb:
-        "A mobile bookkeeping assistant for Indian retailers. Shopkeepers turn confirmed WhatsApp orders into invoices and track what each customer owes.",
+        "A mobile bookkeeping assistant for Indian retailers. It turns WhatsApp orders into invoices and answers questions about customer balances in Hindi and English.",
       story:
-        "When a shopkeeper confirms a payment, Dukanpe matches it to the invoice and updates the customer’s balance once. A Hindi and English assistant answers questions about orders and balances and links each answer to the underlying records.",
+        "Customers can send a payment screenshot more than once. I made the shopkeeper’s confirmation the point where the invoice is settled. Here’s what the payment test checks for a ₹120 rice order.",
+      caseStudy: {
+        title: "How one payment becomes one receipt",
+        screenshot: {
+          src: "/project-images/dukanpe-payment-review.webp",
+          alt: "Dukanpe shows ₹120 under review with the invoice amount, merchant UPI ID, and payment success text found in the screenshot.",
+          caption: "The test invoice still shows ₹120 due at this stage.",
+          width: 644,
+          height: 492,
+        },
+        steps: [
+          { label: "Screenshot", detail: "The first submission opens a review. Resending it leaves ₹120 due." },
+          { label: "Confirmation", detail: "The shopkeeper checks the transfer and confirms receipt. The balance falls to ₹0." },
+          { label: "Repeat confirmation", detail: "The balance stays at ₹0, and the ledger still contains one receipt." },
+        ],
+        sources: [
+          { label: "Read the payment test", href: "https://github.com/muqeet1001/dukanpe/blob/a3e5e7d1858ecc3cde2620e70f96ec774a67d55b/server/test/payments.test.js#L50-L66" },
+        ],
+      },
       stack: ["React Native", "Expo", "TypeScript", "Node.js", "MongoDB", "Groq"],
       year: "2026",
       links: { source: "https://github.com/muqeet1001/dukanpe" },
@@ -150,9 +175,35 @@ export const site = {
       image: "/project-images/student-os-banner.webp",
       imageAlt: "Students walking toward a library behind the Student OS motto, “Learn. Build. Become.”",
       blurb:
-        "A placement platform that helps engineering students assess their readiness across five areas and build a four-week preparation plan.",
+        "A campus placement platform. Students get a four-week preparation plan and mentor feedback. Placement teams match candidates to jobs and track them through interviews and offers.",
       story:
-        "Placement teams match students to company requirements and track candidates from shortlisting and interviews through offers and joining. Students can ask mentors to review their résumés and projects, then follow up in the same conversation. I published an IEEE conference paper on Student OS.",
+        "I used the gaps behind the readiness score to choose practice tasks. A test profile targeting software engineering scores 35/100 across five areas. Its results shape the four weeks below.",
+      caseStudy: {
+        title: "What comes after a score of 35/100?",
+        screenshot: {
+          src: "/project-images/student-os-readiness.webp",
+          alt: "Student OS readiness score of 35/100, with skills at 17%, coding at 20%, résumé at 40%, interview at 70%, and projects at 40%.",
+          caption: "The Student OS dashboard with its public test profile.",
+          width: 660,
+          height: 428,
+        },
+        steps: [
+          { label: "Week 1", detail: "Take the object-oriented programming assessment. It’s the first missing skill for the target role." },
+          { label: "Week 2", detail: "Aim for 34 solved problems. The plan uses the 100-problem gap between 20 solved and the role’s target of 120." },
+          { label: "Week 3", detail: "Add a second project to the profile and quantify a result." },
+          { label: "Week 4", detail: "Complete a mock interview and reach 70%. This profile already meets the score target." },
+        ],
+        sources: [
+          { label: "See the test profile", href: "https://github.com/muqeet1001/Student_OS/blob/ea4b7db08ba6d10d983dfb08859c34c9ce7dc81c/server/tests/readiness.test.js#L6-L32" },
+          { label: "Read the plan logic", href: "https://github.com/muqeet1001/Student_OS/blob/ea4b7db08ba6d10d983dfb08859c34c9ce7dc81c/server/src/services/roadmap.service.js#L25-L154" },
+        ],
+        publication: {
+          title: "AI-Driven Systems for Education and Recruitment: Technologies, Applications, and Emerging Trends",
+          href: "https://ieeexplore.ieee.org/document/11708130",
+          citation: "Co-author · AIKIIE 2026 · pp. 1–7",
+          doi: "10.1109/AIKIIE69997.2026.11708130",
+        },
+      },
       stack: ["React", "Node.js", "Express", "MongoDB"],
       year: "2026",
       links: { source: "https://github.com/muqeet1001/Student_OS" },

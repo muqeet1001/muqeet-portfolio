@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
-import { VisitorProvider } from "@/context/VisitorContext";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SideIndex } from "@/components/SideIndex";
@@ -40,10 +39,10 @@ function MainLayout({ onOpenPalette }: { onOpenPalette: () => void }) {
   return (
     <>
       <Hero onOpenPalette={onOpenPalette} />
+      <Projects isSearchable={false} />
       <About />
       <Contact />
       <Experience />
-      <Projects isSearchable={false} />
       <TechStack />
       <Background />
       <GithubActivity />
@@ -67,29 +66,27 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <VisitorProvider>
-        <BrowserRouter>
-          <Analytics />
-          <ScrollToTop />
-          <Konami />
-          <CursorPets />
-          <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
-            <Nav onOpenPalette={() => setPaletteOpen(true)} />
-            <SideIndex />
+      <BrowserRouter>
+        <Analytics />
+        <ScrollToTop />
+        <Konami />
+        <CursorPets />
+        <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
+          <Nav onOpenPalette={() => setPaletteOpen(true)} />
+          <SideIndex />
 
-            <main className="relative z-10">
-              <Routes>
-                <Route path="/" element={<MainLayout onOpenPalette={() => setPaletteOpen(true)} />} />
-                <Route path="/projects" element={<Projects isSearchable={true} />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-            </main>
+          <main className="relative z-10">
+            <Routes>
+              <Route path="/" element={<MainLayout onOpenPalette={() => setPaletteOpen(true)} />} />
+              <Route path="/projects" element={<Projects isSearchable={true} />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
 
-            <Footer />
-            <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
-          </div>
-        </BrowserRouter>
-      </VisitorProvider>
+          <Footer />
+          <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

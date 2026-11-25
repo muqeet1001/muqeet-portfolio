@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const INDEX_ITEMS = [
+  { id: "projects", label: "Projects" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "achievements", label: "Achievements" },
   { id: "education", label: "Education" },
